@@ -4,12 +4,22 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# SPA redirect - all routes go to index.html
+# SPA redirect - only routes, NOT static assets
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  force = true
+
+# Exclude assets from redirect - must come AFTER the main redirect
+[[redirects]]
+  from = "/assets/*"
+  to = "/assets/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/favicon.ico"
+  to = "/favicon.ico"
+  status = 200
 
 # Cache busting for static assets
 [[headers]]
