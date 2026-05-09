@@ -73,10 +73,12 @@ The frontend works standalone using localStorage - no backend required for basic
 3. Click "Add new site" → "Import an existing project"
 4. Select the repository
 5. Configure:
-   - Base directory: `client`
+   - Base directory: `client` (important!)
    - Build command: `npm run build`
    - Publish directory: `dist`
 6. Click "Deploy"
+
+> **Important:** A `netlify.toml` file is now at the repository root (`healthcare-iot-security/netlify.toml`) with `base = "client"` configured. This tells Netlify to build from the client folder where package.json exists.
 
 **Or using CLI:**
 
