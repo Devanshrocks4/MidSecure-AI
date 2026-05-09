@@ -1,0 +1,329 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================================
+   MedSecure AI — Custom Base Styles
+   Extended beyond Tailwind for premium effects
+   ============================================================ */
+
+:root {
+  /* Design tokens from original CSS */
+  --bg-base: #0a0f1c;
+  --bg-canvas: #0d1424;
+  --surface-1: rgba(18, 28, 52, 0.8);
+  --surface-2: rgba(24, 36, 68, 0.85);
+  --surface-3: rgba(32, 48, 90, 0.9);
+  --border-soft: rgba(88, 166, 255, 0.08);
+  --border: rgba(88, 166, 255, 0.15);
+  --border-strong: rgba(88, 166, 255, 0.25);
+  --primary: #22d3ee;
+  --primary-glow: rgba(34, 211, 238, 0.25);
+  --secondary: #818cf8;
+  --accent: #c084fc;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --critical: #f43f5e;
+  --info: #818cf8;
+  --text: #f1f5f9;
+  --text-soft: #cbd5e1;
+  --text-dim: #94a3b8;
+  --text-muted: #64748b;
+  
+  --sidebar-w: 270px;
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --transition: 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg-base);
+  background-image:
+    radial-gradient(ellipse 100% 80% at 50% -20%, rgba(34, 211, 238, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 50% at 85% 15%, rgba(192, 132, 252, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse 50% 40% at 15% 85%, rgba(129, 140, 248, 0.06) 0%, transparent 40%),
+    linear-gradient(180deg, var(--bg-base) 0%, #060b14 100%);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Network particle canvas */
+#network-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+/* Page loader */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--bg-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  transition: opacity 500ms ease;
+}
+
+.page-loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader-shield {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.loader-shield svg {
+  animation: pulse-glow 1.4s ease-in-out infinite;
+}
+
+.loader-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Page transitions */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: page-enter 480ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
+}
+
+/* Custom animations */
+@keyframes pulse-dot {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(52, 211, 153, 0);
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes radar-sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.radar-sweep {
+  animation: radar-sweep 4s linear infinite;
+}
+
+@keyframes blip-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.6;
+  }
+}
+
+.blip-pulse {
+  animation: blip-pulse 2s ease-in-out infinite;
+}
+
+@keyframes draw-ecg {
+  0% {
+    stroke-dashoffset: 600;
+    opacity: 1;
+  }
+  80% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+.ecg-line path {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: draw-ecg 2.4s linear infinite;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes toast-out {
+  to {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+.toast-enter {
+  animation: toast-in 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-exit {
+  animation: toast-out 220ms ease forwards;
+}
+
+/* Glowing border effect */
+.glow-border {
+  position: relative;
+}
+
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.glow-border:hover::before {
+  opacity: 0.5;
+}
+
+/* Glassmorphism */
+.glass {
+  background: var(--surface-1);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-soft);
+}
+
+/* Animated gradient background */
+.gradient-animate {
+  background: linear-gradient(
+    -45deg,
+    var(--primary),
+    var(--secondary),
+    var(--accent),
+    var(--primary)
+  );
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Counter shimmer */
+@keyframes count-shimmer {
+  0% {
+    color: var(--text);
+  }
+  50% {
+    color: var(--primary);
+    text-shadow: 0 0 12px var(--primary-glow);
+  }
+  100% {
+    color: var(--text);
+  }
+}
+
+.stat-value.updating {
+  animation: count-shimmer 600ms ease;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  :root {
+    --sidebar-w: 240px;
+  }
+}
